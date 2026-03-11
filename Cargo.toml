@@ -1,0 +1,19 @@
+[package]
+name = "clow"
+version = "0.1.0"
+edition = "2024"
+exclude = [
+    "target/*",
+]
+authors = ["Adrian Paskert"]
+
+
+[features]
+cust = ["dep:cust"]
+default_features = ["cust"]
+
+[dependencies]
+cudarc = { version= "0.19.3", features=[
+    "cudnn", "driver", "nvrtc", "nvtx", "nccl", "cupti", "cufile", "runtime", "std", "cublas", "cuda-12080"] }
+cust = { version="0.3.3", git="https://github.com/LateinCecer/Rust-CUDA.git", optional = true }
+log = "0.4.29"
