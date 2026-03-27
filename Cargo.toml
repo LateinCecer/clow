@@ -30,4 +30,5 @@ log = "0.4.29"
 
 [dev-dependencies]
 cudarc = { version="^0.19", features = ["cuda-12080"] }
-
+rand = "0.8"
+indicatif = "0.17"
