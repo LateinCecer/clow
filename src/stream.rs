@@ -62,14 +62,12 @@ pub trait ClowStream {
     ) -> Result<ClowSlice<T>, DriverError>;
 }
 
-pub(crate) const HAS_ASYNC_ALLOC: bool = true;
-
 impl ClowStream for CudaStream {
     fn clow_null<T>(
         self: &Arc<Self>,
     ) -> Result<ClowSlice<T>, DriverError> {
         self.context().bind_to_thread()?;
-        let ptr = if HAS_ASYNC_ALLOC {
+        let ptr = if self.context().has_async_alloc() {
             unsafe { result::malloc_async(self.cu_stream(), 0) }?
         } else {
             unsafe { result::malloc_sync(0) }?
@@ -86,7 +84,7 @@ impl ClowStream for CudaStream {
         len: usize,
     ) -> Result<ClowSlice<T>, DriverError> {
         self.context().bind_to_thread()?;
-        let ptr = if HAS_ASYNC_ALLOC {
+        let ptr = if self.context().has_async_alloc() {
             unsafe { result::malloc_async(self.cu_stream(), len * std::mem::size_of::<T>())? }
         } else {
             unsafe { result::malloc_sync(len * std::mem::size_of::<T>())? }

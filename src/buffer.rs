@@ -1,5 +1,4 @@
 use crate::pointer::{ClowPointable, ClowPtr, ClowSized, ClowView, ClowViewMut, ClowViewable, ClowViewableMut};
-use crate::stream::HAS_ASYNC_ALLOC;
 use cudarc::driver::{result, CudaContext, CudaSlice, CudaStream, CudaView, CudaViewMut, DevicePtr, DeviceSlice, DriverError, SyncOnDrop};
 use std::marker::PhantomData;
 use std::mem;
@@ -25,7 +24,7 @@ impl<T: ?Sized> Drop for ClowSlice<T> {
         if self.len > 0 {
             let ptr = mem::replace(&mut self.ptr, ClowPtr::null());
             let ctx = self.stream.context();
-            if HAS_ASYNC_ALLOC {
+            if self.stream.context().has_async_alloc() {
                 ctx.record_err(unsafe {
                     result::free_async(self.ptr.ptr, self.stream.cu_stream())
                 });
