@@ -19,3 +19,5 @@ For example, Clow's `ClowView` has an internal layout that matches a fat pointer
 
 Make sure the Cudarc version matches; otherwise Cudarc will probably fail to compile against your
 local architecture.
+You can export the specific cuda version to use in `CUDARC_CUDA_VERSION` to CUDARC without specifying
+the features flag in the Cargo.toml directly.
