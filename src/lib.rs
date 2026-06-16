@@ -5,6 +5,7 @@ mod pointer;
 mod stream;
 mod context;
 pub mod prelude;
+mod event;
 
 #[cfg(test)]
 mod test {
