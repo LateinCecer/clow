@@ -50,6 +50,18 @@ pub trait ClowViewableMut<T>: ClowPointable<T> + ClowSized<T> {
     fn get_view_mut(&mut self) -> ClowViewMut<T>;
 }
 
+impl<T> ClowViewable<T> for ClowView<T> {
+    fn get_view(&self) -> ClowView<T> {
+        *self
+    }
+}
+
+impl<T> ClowViewableMut<T> for ClowViewMut<T> {
+    fn get_view_mut(&mut self) -> ClowViewMut<T> {
+        *self
+    }
+}
+
 impl<T: ?Sized> ClowPointable<T> for ClowPtr<T> {
     fn as_device_ptr(&self) -> ClowPtr<T> {
         *self
