@@ -76,6 +76,17 @@ impl<T: ?Sized> fmt::Pointer for ClowPtr<T> {
 }
 
 impl<T: ?Sized> ClowPtr<T> {
+    pub fn cu_ptr(&self) -> CUdeviceptr {
+        self.ptr
+    }
+
+    pub fn byte_offset(self, offset: u64) -> Self {
+        Self {
+            ptr: self.ptr + offset,
+            _t: self._t
+        }
+    }
+
     pub fn from_raw_parts(ptr: CUdeviceptr) -> Self {
         Self {
             ptr,
