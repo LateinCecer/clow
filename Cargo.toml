@@ -24,7 +24,7 @@ cust = ["dep:cust"]
 default_features = []
 
 [dependencies]
-cudarc = { version= "^0.19", features=["driver"] }
+cudarc = { git="https://github.com/LateinCecer/cudarc", version= "^0.19", features=["driver"] }
 cust = { version="0.3.2", optional = true }
 log = "0.4.29"
 
