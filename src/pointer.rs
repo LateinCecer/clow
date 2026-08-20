@@ -197,7 +197,7 @@ impl<T: ?Sized> ClowView<T> {
     where T: Sized {
         if range.end <= self.len as usize {
             let ptr = unsafe { self.ptr
-                .offset((range.start * std::mem::size_of::<T>()) as isize) };
+                .offset(range.start as isize) };
             Some(Self { ptr, len: range.len() as u64 })
         } else {
             None
